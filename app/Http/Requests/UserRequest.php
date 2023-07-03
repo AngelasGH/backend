@@ -34,9 +34,13 @@ class UserRequest extends FormRequest
                 'email' => 'required|string|email|max:255',
                 'password' => 'required|min:8',
             ];
-       } else{
+       } elseif (request() -> routeIs('user.image') || request()-> routeIs('profile.image') || request()-> routeIs('image.ocr')){
+        return [
+            'image' => 'required|image|mimes:jpg,bmp,png|max:2048',
+        ];
+        } else{
             return [
-                
+                'message' => 'no user request for that route name'
             ];
        }
     }
